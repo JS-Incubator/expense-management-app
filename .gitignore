@@ -105,6 +105,3 @@ dist
 
 #package lock
 package-lock.json
-
-#Ignoring config file
-config/config.env
