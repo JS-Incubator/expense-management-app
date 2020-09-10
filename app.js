@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const connectDB = require('./config/db');
 
 //Initializing config file for environment variables
-dotenv.config({path: './config/config.env'});
+dotenv.config({path: './config/config.env}'});
 
 //Initilizing and connecting to the database
 connectDB();
@@ -14,7 +14,6 @@ connectDB();
 const app = express();
 
 //JSON parser
-app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 //Setting up view engine and views folder
@@ -34,12 +33,10 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-//Registering and Initializing routes
-const authRoutes = require('./routes/auth');
-const appRoutes = require('./routes/app');
+//Initializing and registering routes
+const authRoute = require('./routes/auth');
 
-app.use('/auth', authRoutes);
-app.use('/app', appRoutes);
+app.use('/register', authRoute);
 
 //Initialize the express server
 const PORT = process.env.PORT || 5858;
