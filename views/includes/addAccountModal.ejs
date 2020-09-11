@@ -1,0 +1,93 @@
+  <!-- Modal Window -->
+  <div id="addAccount" class="modal">
+   <div>
+     <div class="container">
+       <form method="POST" action="/app/add-account" class="col s10">
+         <div class="modal-content center-align">
+           <h4 class="modal-header">Add New Account</h4>
+           <div class="row">
+             <div class="input-field col s12">
+               <input
+                 placeholder="Account Name"
+                 id="accountName"
+                 name="accountName"
+                 type="text"
+               />
+               <label for="accountName">Account Name</label>
+             </div>
+           </div>
+           <div class="row">
+             <div class="input-field col s12">
+               <select name="accountType" , id="accountType">
+                 <option value="bank" selected>Bank</option>
+                 <option value="cash">Cash</option>
+                 <option value="receivables">Receivables</option>
+                 <option value="creditCard">Credit Card</option>
+                 <option value="loans">Loans</option>
+               </select>
+               <label for="Account Type">Account Type</label>
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="input-field col s12">
+               <input
+                 placeholder="Opening Date"
+                 id="openingDate"
+                 name="openingDate"
+                 type="text"
+                 class="datepicker col s12"
+               />
+               <label for="openingData">Opening Date</label>
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="input-field col s12">
+               <input
+                 placeholder="Opening Balance"
+                 id="openingBalance"
+                 name="openingBalance"
+                 type="text"
+               />
+               <label for="openingBalance">Opening Balance</label>
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="input-field col s12">
+               <input
+                 placeholder="Current Balance"
+                 id="currentBalance"
+                 name="currentBalance"
+                 type="text"
+               />
+               <label for="currentBalance">Current Balance</label>
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="input-field col s12">
+               <select name="currency" id="currency">
+                 <option value="usDollers" selected>US Dollers</option>
+                 <option value="canadianDollers">Canadian Dollers</option>
+               </select>
+               <label for="defaultCurrency">Default Currency</label>
+             </div>
+           </div>
+         </div>
+         <div class="modal-footer">
+           <a type="" href="" class="modal-close waves-effect waves-green btn"
+             >Cancel</a
+           >
+           <button
+             type="submit"
+             class="modal-close waves-effect waves-green btn"
+           >
+             Add Account
+           </button>
+         </div>
+       </form>
+     </div>
+   </div>
+ </div>

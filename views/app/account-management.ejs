@@ -1,0 +1,72 @@
+<%- include('../includes/header.ejs') %> <%-
+include('../includes/navigation.ejs') %>
+
+<!--Defauld Screen -->
+
+<div class="container">
+  <h6>Manage Your Accounts</h6>
+
+  <% if ( accounts && accounts.length > 0) { %>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Account Name</th>
+        <th>CM Opening Balance</th>
+        <th>Existing Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% accountTypes.forEach(type => {%>
+      <tr>
+        <td><%=type%></td>
+      </tr>
+      <% accounts.forEach(account => {%> <% if (account.accountType === type)
+      {%>
+      <tr>
+        <td><%=account.accountName%></td>
+        <td><%=account.openingBalance%></td>
+        <td><%=account.currentBalance%></td>
+      </tr>
+      <%}%> <%})%> <% }) %>
+    </tbody>
+  </table>
+  <% } else { %>
+  <div class="container">
+    <div class="row">
+      <h3>
+        You have no account created yet, Click the button below to get started
+      </h3>
+    </div>
+  </div>
+  <% } %>
+
+  <!----Add Account Modal Window-->
+  <%- include('../includes/addAccountModal.ejs') %>
+
+  <!---Floating Action button-->
+  <div class="fixed-action-btn">
+    <a
+      class="btn-floating btn-large waves-effect waves-light red modal-trigger"
+      href="#addAccount"
+      ><i class="material-icons">add</i></a
+    >
+  </div>
+</div>
+
+<!---Common Scripts for Modal Window and Selectors-->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+  });
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems);
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+</script>
+<%- include('../includes/footer.ejs') %>
