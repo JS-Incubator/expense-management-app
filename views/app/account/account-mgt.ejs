@@ -1,5 +1,5 @@
-<%- include('../includes/header.ejs') %> <%-
-include('../includes/navigation.ejs') %>
+<%- include('../../includes/header.ejs') %> <%-
+include('../../includes/navigation.ejs') %>
 
 <!--Defauld Screen -->
 
@@ -18,7 +18,7 @@ include('../includes/navigation.ejs') %>
     <tbody>
       <% accountTypes.forEach(type => {%>
       <tr>
-        <td><%=type%></td>
+        <div><td><%=type%></div></td>
       </tr>
       <% accounts.forEach(account => {%> <% if (account.accountType === type)
       {%>
@@ -26,6 +26,12 @@ include('../includes/navigation.ejs') %>
         <td><%=account.accountName%></td>
         <td><%=account.openingBalance%></td>
         <td><%=account.currentBalance%></td>
+        <td>
+          <a
+            href="/app/edit-account/<%=account._id%>"
+            ><i class="fas fa-edit"></i
+          ></a>
+        </td>
       </tr>
       <%}%> <%})%> <% }) %>
     </tbody>
@@ -40,33 +46,16 @@ include('../includes/navigation.ejs') %>
   </div>
   <% } %>
 
-  <!----Add Account Modal Window-->
-  <%- include('../includes/addAccountModal.ejs') %>
 
   <!---Floating Action button-->
   <div class="fixed-action-btn">
     <a
       class="btn-floating btn-large waves-effect waves-light red modal-trigger"
-      href="#addAccount"
+      href="/app/add-account"
       ><i class="material-icons">add</i></a
     >
   </div>
 </div>
 
-<!---Common Scripts for Modal Window and Selectors-->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
-  });
-  document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems);
-  });
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems);
-  });
-</script>
-<%- include('../includes/footer.ejs') %>
+<%- include('../../includes/footer.ejs') %>

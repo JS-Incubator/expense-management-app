@@ -1,0 +1,19 @@
+body {
+  font-family: 'Comfortaa', cursive !important;
+}
+
+#addAccount {
+  left: 0;
+  right: 0;
+  padding: 0;
+  max-width: 35%;
+  will-change: top, opacity;
+}
+
+#openingDate {
+  min-width: 100%;
+}
+
+.form-header {
+  padding: 20px 0;
+}

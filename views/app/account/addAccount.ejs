@@ -1,0 +1,105 @@
+<!---Header Includes File-->
+<%- include('../../includes/header.ejs') %> <%-
+include('../../includes/navigation.ejs') %>
+
+<div class="container">
+  <div class="col s6">
+    <form method="POST" action="/app/add-account">
+      <h4 class="form-header">Add New Account</h4>
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            placeholder="Account Name"
+            id="accountName"
+            name="accountName"
+            type="text"
+          />
+          <label for="accountName">Account Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <select name="accountType" , id="accountType">
+            <!--TODO: Need to generate dynamically -->
+            <option value="Bank" selected>Bank</option>
+            <option value="Cash">Cash</option>
+            <option value="Receivables">Receivables</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Loans">Loans</option>
+          </select>
+          <label for="accountType">Account Type</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            placeholder="Opening Date"
+            id="openingDate"
+            name="openingDate"
+            type="text"
+            class="datepicker col s12"
+          />
+          <label for="openingData">Opening Date</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            placeholder="Opening Balance"
+            id="openingBalance"
+            name="openingBalance"
+            type="text"
+          />
+          <label for="openingBalance">Opening Balance</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            placeholder="Current Balance"
+            id="currentBalance"
+            name="currentBalance"
+            type="text"
+          />
+          <label for="currentBalance">Current Balance</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <select name="currency" id="currency">
+            <!--TODO: Need to generate dynamically -->
+            <option value="US Dollers" selected>US Dollers</option>
+            <option value="Canadian Dollers">Canadian Dollers</option>
+          </select>
+          <label for="defaultCurrency">Default Currency</label>
+        </div>
+      </div>
+      <div class="row">
+        <a href="/app/accounts" class="waves-effect waves-green btn">Cancel</a>
+        <button type="submit" class="waves-effect waves-green btn">
+          Add Account
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!---Common Scripts for Selectors-->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems);
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+</script>
+
+<!---Footer Includes File-->
+<%- include('../../includes/footer.ejs') %>
