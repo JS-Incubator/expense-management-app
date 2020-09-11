@@ -106,5 +106,8 @@ dist
 #package lock
 package-lock.json
 
+#prettier-ignore
+.prettierignore
+
 #Ignoring config file
 config/config.env
