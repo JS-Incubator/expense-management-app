@@ -5,6 +5,7 @@ module.exports = {
   getDashboard: (req, res) => {
     res.render('app/dashboard', {
       pageTitle: 'Dashboard',
+      pageHeader: 'Your Dashboard',
     });
   },
 
@@ -21,6 +22,7 @@ module.exports = {
     });
     res.render('app/account/account-mgt', {
       pageTitle: 'Account Managememt',
+      pageHeader: 'Manage Your Accounts',
       accountTypes,
       accounts,
       account: null,
@@ -30,6 +32,7 @@ module.exports = {
   getAddAccount: (req, res) => {
     res.render('app/account/addAccount', {
       pageTitle: 'Add Account',
+      pageHeader: 'Add New Account',
     });
   },
 
@@ -60,6 +63,7 @@ module.exports = {
     } else {
       res.render('app/account/editAccount', {
         pageTitle: 'Edit Account',
+        pageHeader: 'Edit Account',
         account,
       });
     }

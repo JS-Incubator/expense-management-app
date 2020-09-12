@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: 'Comfortaa', cursive !important;
 }
@@ -19,6 +22,8 @@ body {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   background-color: #1a237e;
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav {
@@ -43,6 +48,25 @@ body {
 }
 
 /*Navgation related styles*/
+.headet-text {
+  margin: auto 0;
+  padding: 0 20px;
+}
+
+.headet-text p {
+  margin: 0;
+  color: #fdfefe;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.noti-icon {
+  margin: auto 50px;
+  color: #fdfefe;
+  font-size: 25px;
+  font-weight: 500;
+}
+
 .user {
   margin: 50px auto;
 }
@@ -101,4 +125,14 @@ body {
   color: #fdfefe;
   background-color: #3f51b5;
   border-radius: 5px;
+}
+
+/* Table styles */
+.table {
+  margin: 50px;
+}
+
+.table-header {
+  background-color: #1a237e;
+  color: #fdfefe;
 }

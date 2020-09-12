@@ -6,7 +6,7 @@ const {
   postAddAccount,
   getEditAccount,
   postEditAccount,
-} = require('../controller/appController');
+} = require('../controller/accountController');
 
 //@desc Render the dashboard
 //@route GET /app/dashboard
