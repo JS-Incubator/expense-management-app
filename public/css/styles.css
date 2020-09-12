@@ -2,18 +2,103 @@ body {
   font-family: 'Comfortaa', cursive !important;
 }
 
-#addAccount {
-  left: 0;
-  right: 0;
-  padding: 0;
-  max-width: 35%;
-  will-change: top, opacity;
-}
-
-#openingDate {
-  min-width: 100%;
-}
-
 .form-header {
   padding: 20px 0;
+}
+
+/* Define grid template */
+.grid-container {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-rows: 5vh 90vh 5vh;
+  grid-template-columns: 20vw 80vw;
+}
+
+.header {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  background-color: #1a237e;
+}
+
+.nav {
+  width: 100%;
+  height: 100%;
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
+  background-color: #1a237e;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  grid-column: 2 / 3;
+  grid-row: 2 / 4;
+}
+
+.footer {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  background-color: #1a237e;
+}
+
+/*Navgation related styles*/
+.user {
+  margin: 50px auto;
+}
+
+.nav-user-img {
+  width: 120px;
+  height: 120px;
+  display: block;
+  margin: auto;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.nav-user-name {
+  padding: 15px;
+  color: #fdfefe;
+}
+
+.nav-link {
+  width: 100%;
+  border-top: 0.5px solid #3f51b5;
+}
+
+.nav-link:last-child {
+  border-bottom: 0.5px solid #3f51b5;
+}
+
+.nav-link {
+  display: block;
+  padding: 12px;
+  color: #fdfefe;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link:active {
+  background-color: #303f9f;
+}
+
+.nav-bar-icon {
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.log-out {
+  margin: auto auto 20px auto;
+  padding: 20px 0;
+  align-self: flex-end;
+}
+
+.log-out-btn {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fdfefe;
+  background-color: #3f51b5;
+  border-radius: 5px;
 }

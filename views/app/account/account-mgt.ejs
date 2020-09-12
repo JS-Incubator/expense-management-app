@@ -1,5 +1,6 @@
+<!---Header Includes File-->
 <%- include('../../includes/header.ejs') %> <%-
-include('../../includes/navigation.ejs') %>
+include('../../includes/navigation-top.ejs') %>
 
 <!--Defauld Screen -->
 
@@ -46,16 +47,18 @@ include('../../includes/navigation.ejs') %>
   </div>
   <% } %>
 
-
   <!---Floating Action button-->
   <div class="fixed-action-btn">
     <a
-      class="btn-floating btn-large waves-effect waves-light red modal-trigger"
+      class="btn-floating btn-large waves-effect waves-light red"
       href="/app/add-account"
       ><i class="material-icons">add</i></a
     >
   </div>
 </div>
 
+<!---Navigation bottom include file-->
+<%- include('../../includes/navigation-bottom.ejs') %>
 
+<!---Footer Includes File-->
 <%- include('../../includes/footer.ejs') %>
