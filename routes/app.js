@@ -2,7 +2,6 @@ const router = require('express').Router();
 const {
   getDashboard,
   getAccounts,
-  getAddAccount,
   postAddAccount,
   getEditAccount,
   postEditAccount,
@@ -25,10 +24,6 @@ router.get('/dashboard', getDashboard);
 //@desc Render the account management scree
 //@route GET /app/accounts
 router.get('/accounts', getAccounts);
-
-//@desc Render add account page
-//@route GET /app/add-account
-router.get('/account/add', getAddAccount);
 
 //@desc Save new account data to the Accounts Modal
 //@route POST /app/add-account

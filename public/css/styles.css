@@ -26,6 +26,7 @@ body {
   background-color: #1a237e;
   display: flex;
   justify-content: space-between;
+  z-index: 8;
 }
 
 .nav {
@@ -36,11 +37,14 @@ body {
   background-color: #1a237e;
   display: flex;
   flex-direction: column;
+  z-index: 8;
 }
 
 .main {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
+  z-index: 5;
+  position: relative;
 }
 
 .footer {
@@ -131,63 +135,57 @@ body {
 
 /* Modal window styles */
 /*This is element ot which modal will be attched*/
-.attach-modal {
+.modal-backdrop {
   position: absolute;
-  width: 80vw;
-  height: 90vh;
-  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
   background-color: rgba(0, 0, 0, 0.7);
   backface-visibility: hidden;
 }
 
-/* Animations */
-@keyframes modalShowAnimation {
-  0% {
-    transform: translateY(-100%);
-    /* opacity: 0; */
-  }
-  100% {
-    transform: translateY(0);
-    /* opacity: 1; */
-  }
+.show-backdrop {
+  transform: translateY(0%);
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.5s, opacity 0.5s, visibility 0.5s;
+  transition-timing-function: ease-in;
 }
 
-@keyframes modalHideAnimation {
-  0% {
-    transform: translateY(0);
-    transform-origin: top center;
-    /* opacity: 1; */
-  }
-  100% {
-    transform: translateY(-100%);
-    /* opacity: 0; */
-  }
-}
-
-.hide-modal {
-  animation: modalHideAnimation 0.5s ease-out;
+.hide-backdrop {
+  transform: translateY(-100%);
+  opacity: 0;
   visibility: hidden;
-  transition: visibility 0.5s;
-  -webkit-transition: visibility 0.5s;
-}
-
-.show-modal {
-  animation: modalShowAnimation 0.5s ease-out;
+  transition: transform 0.5s, opacity 0.5s, visibility 0.5s;
+  transition-timing-function: ease-out;
 }
 
 .modal-container {
-  z-index: 1;
   position: absolute;
+  left: 50%;
+  top: 0;
   width: 40vw;
-  left: 40vw;
-  margin-left: -20vw;
   background-color: white;
   border-radius: 0 0 10px 10px;
-  animation: modalShowAnimation 0.5s ease-out;
+  z-index: 7;
 }
 
-.dismiss-modal {
-  animation: modalHideAnimation 0.5s ease-out;
+.show-modal {
+  transform: translate(-50%, 0%);
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.5s, opacity 0.5s, visibility 0.5s;
+  transition-timing-function: ease-in;
+}
+
+.hide-modal {
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.5s, opacity 0.5s, visibility 0.5s;
+  transition-timing-function: ease-out;
 }
 
 .form-container {
