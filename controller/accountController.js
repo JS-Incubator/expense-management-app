@@ -1,5 +1,4 @@
 const Account = require('../models/account');
-const account = require('../models/account');
 
 module.exports = {
   getDashboard: (req, res) => {
@@ -30,10 +29,16 @@ module.exports = {
   },
 
   getAddAccount: (req, res) => {
-    res.render('app/account/addAccount', {
+    res.send({
       pageTitle: 'Add Account',
       pageHeader: 'Add New Account',
+      mode: 'addAccount',
     });
+
+    // res.render('app/account/model-window-test', {
+    //   pageTitle: 'Add Account',
+    //   pageHeader: 'Add New Account',
+    // });
   },
 
   postAddAccount: async (req, res) => {
