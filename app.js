@@ -27,6 +27,7 @@ app.use(
   '/public/images',
   express.static(path.join(__dirname, 'public/images'))
 );
+app.use('/helpers/app', express.static(path.join(__dirname, 'helpers/app')));
 
 //Initialize HTTP request logger
 // **Not required and interesting to see, just comment out this block, remove morgan

@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 body {
   font-family: 'Comfortaa', cursive !important;
@@ -38,7 +40,7 @@ body {
 
 .main {
   grid-column: 2 / 3;
-  grid-row: 2 / 4;
+  grid-row: 2 / 3;
 }
 
 .footer {
@@ -127,8 +129,82 @@ body {
   border-radius: 5px;
 }
 
+/* Modal window styles */
+/*This is element ot which modal will be attched*/
+.attach-modal {
+  position: absolute;
+  width: 80vw;
+  height: 90vh;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.7);
+  backface-visibility: hidden;
+}
+
+/* Animations */
+@keyframes modalShowAnimation {
+  0% {
+    transform: translateY(-100%);
+    /* opacity: 0; */
+  }
+  100% {
+    transform: translateY(0);
+    /* opacity: 1; */
+  }
+}
+
+@keyframes modalHideAnimation {
+  0% {
+    transform: translateY(0);
+    transform-origin: top center;
+    /* opacity: 1; */
+  }
+  100% {
+    transform: translateY(-100%);
+    /* opacity: 0; */
+  }
+}
+
+.hide-modal {
+  animation: modalHideAnimation 0.5s ease-out;
+  visibility: hidden;
+  transition: visibility 0.5s;
+  -webkit-transition: visibility 0.5s;
+}
+
+.show-modal {
+  animation: modalShowAnimation 0.5s ease-out;
+}
+
+.modal-container {
+  z-index: 1;
+  position: absolute;
+  width: 40vw;
+  left: 40vw;
+  margin-left: -20vw;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  animation: modalShowAnimation 0.5s ease-out;
+}
+
+.dismiss-modal {
+  animation: modalHideAnimation 0.5s ease-out;
+}
+
+.form-container {
+  width: 80%;
+  height: 100%;
+  margin: 20px auto;
+}
+
+.modal-header {
+  display: block;
+  text-align: center;
+  padding: 20px auto;
+}
+
 /* Table styles */
 .table {
+  z-index: 2;
   margin: 50px;
 }
 

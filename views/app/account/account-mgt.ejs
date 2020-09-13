@@ -3,7 +3,8 @@
 include('../../includes/navigation-top.ejs') %>
 
 <!--Defauld Screen -->
-
+<div class="attach-modal hide-modal" id="attach-modal">
+</div>
 <div class="container">
   <div class="table">
   <% if ( accounts && accounts.length > 0) { %>
@@ -38,6 +39,7 @@ include('../../includes/navigation-top.ejs') %>
     </tbody>
   </table>
 </div>
+</div>
   <% } else { %>
   <div class="container">
     <div class="row">
@@ -50,13 +52,11 @@ include('../../includes/navigation-top.ejs') %>
 
   <!---Floating Action button-->
   <div class="fixed-action-btn">
-    <a
+    <button
+      onclick="handleModal.clickAddAccount(this)"
       class="btn-floating btn-large waves-effect waves-light red"
-      href="/app/add-account"
-      ><i class="material-icons">add</i></a
-    >
+      ><i class="material-icons">add</i></button>
   </div>
-</div>
 
 <!---Navigation bottom include file-->
 <%- include('../../includes/navigation-bottom.ejs') %>
