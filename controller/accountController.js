@@ -14,8 +14,7 @@ module.exports = {
     // TODO: Filtering the account types here, Will be moved to its own modal later
     const accountTypes = [];
     accounts.forEach((account) => {
-      const isUnique = (type) => type === account.accountType;
-      if (accountTypes.findIndex(isUnique)) {
+      if (accountTypes.indexOf(account.accountType) === -1) {
         accountTypes.push(account.accountType);
       }
     });
@@ -26,19 +25,6 @@ module.exports = {
       accounts,
       account: null,
     });
-  },
-
-  getAddAccount: (req, res) => {
-    res.send({
-      pageTitle: 'Add Account',
-      pageHeader: 'Add New Account',
-      mode: 'addAccount',
-    });
-
-    // res.render('app/account/model-window-test', {
-    //   pageTitle: 'Add Account',
-    //   pageHeader: 'Add New Account',
-    // });
   },
 
   postAddAccount: async (req, res) => {
