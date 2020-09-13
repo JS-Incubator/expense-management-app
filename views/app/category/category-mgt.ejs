@@ -1,0 +1,65 @@
+<!---Header Includes File-->
+<%- include('../../includes/header.ejs') %> <%-
+include('../../includes/navigation-top.ejs') %>
+
+<!--Defauld Screen -->
+
+<div class="container">
+  <div class="table">
+  <% if ( categories && categories.length > 0) { %>
+  <table class="striped">
+    <thead class="table-header">
+      <tr>
+          <th>Category Name</th>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% accountTypes.forEach(type => {%>
+      <tr>
+        <div><td><%=type%></div></td>
+      </tr>
+      <% accounts.forEach(account => {%> <% if (account.accountType === type)
+      {%>
+      <tr>
+        <td><%=account.accountName%></td>
+        <td><%=account.openingBalance%></td>
+        <td><%=account.currentBalance%></td>
+        <td>
+          <a
+            href="/app/edit-account/<%=account._id%>"
+            ><i class="fas fa-edit"></i
+          ></a>
+        </td>
+      </tr>
+      <%}%> <%})%> <% }) %>
+    </tbody>
+  </table>
+</div>
+  <% } else { %>
+  <div class="container">
+    <div class="row">
+      <h3>
+        You have no account created yet, Click the button below to get started
+      </h3>
+    </div>
+  </div>
+  <% } %>
+
+  <!---Floating Action button-->
+  <div class="fixed-action-btn">
+    <a
+      class="btn-floating btn-large waves-effect waves-light red"
+      href="/app/add-account"
+      ><i class="material-icons">add</i></a
+    >
+  </div>
+</div>
+
+<!---Navigation bottom include file-->
+<%- include('../../includes/navigation-bottom.ejs') %>
+
+<!---Footer Includes File-->
+<%- include('../../includes/footer.ejs') %>
