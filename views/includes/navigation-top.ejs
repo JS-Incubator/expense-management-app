@@ -5,7 +5,7 @@
    </div>
    <div class="nav">
       <div class=user>
-         <img class="nav-user-img" src="https://w0.pngwave.com/png/639/452/computer-icons-avatar-user-profile-people-icon-png-clip-art.png" alt="User Image">
+         <img class="nav-user-img" src="/public/images/default-profile-image.png" alt="User Image">
          <h4 class="nav-user-name">User Name</h4>
       </div>
       <div class="link-section">
@@ -16,7 +16,10 @@
          <a class="nav-link" href="/app/settings"><i class="fas fa-user-cog nav-bar-icon"></i> Settings</a>
       </div>
       <div class="log-out">
-         <a class="log-out-btn" href="/auth/log-out"><i class="fas fa-sign-out-alt  nav-bar-icon"></i> Logout</a>
+         <form method="POST" action="/log-out">
+            <button type="submit" class="log-out-btn"><i class="fas fa-sign-out-alt  nav-bar-icon"></i> Log-out</button>
+         </form>
+         
       </div>
    </div>
    <div class="main">

@@ -106,10 +106,11 @@ body {
   color: #fdfefe;
   font-size: 16px;
   font-weight: 500;
+  text-decoration: none;
 }
 
 .nav-link:hover,
-.nav-link:active {
+.nav-link.active {
   background-color: #303f9f;
 }
 
@@ -131,6 +132,14 @@ body {
   color: #fdfefe;
   background-color: #3f51b5;
   border-radius: 5px;
+  border: none;
+}
+
+.log-out-btn:hover {
+  font-size: 18px;
+  padding: 10px;
+  box-shadow: 0px 0px 5px 1px rgba(101, 3, 230, 1);
+  transition: all 0.2s ease-out;
 }
 
 /* Modal window styles */
@@ -203,10 +212,214 @@ body {
 /* Table styles */
 .table {
   z-index: 2;
-  margin: 50px;
+  margin: 50px auto;
+  width: 50vw;
+}
+
+.table-header-container {
+  margin: 0 auto;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  border-radius: 5px;
+  background-color: #1a237e;
 }
 
 .table-header {
-  background-color: #1a237e;
+  padding: 5px;
+  width: 100%;
+  height: 100%;
   color: #fdfefe;
+  font-size: 18px;
+  font: 400;
+}
+
+.table-subheader {
+  margin: 10px 0 5px 0;
+  padding: 7px 10px;
+  background-color: #303f9f;
+  color: #fdfefe;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.table-row {
+  margin: 0 auto;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: row;
+  color: #1a237e;
+  border-radius: 5px;
+}
+
+.stripe {
+  background-color: #e8eaf6;
+}
+
+.flex-1 {
+  flex: 2 1 0;
+}
+
+.flex-2 {
+  flex: 1 1 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Login screen related styles */
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-color: #310e68;
+  background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
+  clip-path: polygon(0 85%, 100% 41%, 100% 100%, 0% 100%);
+}
+
+.auth-container {
+  position: absolute;
+  padding: 5px;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  background-color: #fdfefe;
+  box-shadow: -1px 3px 8px 1px rgba(49, 14, 104, 1);
+}
+
+.login-height {
+  max-height: 410px;
+  min-height: 410px;
+  transition: max-height 0.5s min-height 0.5s;
+  transition-timing-function: ease-in;
+}
+
+.register-height {
+  max-height: 600px;
+  min-height: 600px;
+  transition: max-height 0.5s min-height 0.5s;
+  transition-timing-function: ease-in;
+}
+
+.auth-header {
+  background-color: #310e68;
+  background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
+  padding: 20px 0;
+  width: 30vw;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-btn {
+  width: 50%;
+  text-align: center;
+}
+
+.header-btn:first-child {
+  border-right: 3px solid #fdfefe;
+}
+
+.header-btn {
+  text-transform: uppercase;
+  letter-spacing: 1.5;
+  cursor: pointer;
+  font-size: 20px;
+  color: #9fa8da;
+  font-weight: 600;
+}
+
+.header-btn.active {
+  font-size: 30px;
+  color: #fdfefe;
+  font-weight: 800;
+}
+
+.auth-content {
+  width: 100%;
+}
+
+.form-content {
+  position: absolute;
+  width: 30vw;
+  padding: 5px 0 20px 0;
+  margin: 20px 0;
+}
+
+.form-hide {
+  visibility: hidden;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.input-field {
+  margin-left: 10px;
+  padding: 5px;
+  width: 28vw;
+  font-family: inherit;
+  line-height: 1.5;
+  font-size: 16px;
+  color: #310e68;
+  border: none;
+  border-bottom: 1px solid #310e68;
+}
+
+.lable {
+  margin-left: 5px;
+  font-size: 16px;
+  color: #310e68;
+  padding: 5px 0 10px 10px;
+}
+
+.btn-container {
+  margin-top: 50px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.btn-submit {
+  margin-right: 20px;
+  padding: 15px 20px;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  color: #fdfefe;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.log-in {
+  background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
+}
+
+.google {
+  background-image: linear-gradient(
+    to right,
+    #e52d27 0%,
+    #b31217 51%,
+    #e52d27 100%
+  );
+}
+
+.facebook {
+  background-image: linear-gradient(
+    to right,
+    #0575e6 0%,
+    #021b79 51%,
+    #0575e6 100%
+  );
 }
