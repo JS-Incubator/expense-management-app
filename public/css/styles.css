@@ -23,7 +23,7 @@ body {
 .header {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
-  background-color: #1a237e;
+  background-color: #310e68;
   display: flex;
   justify-content: space-between;
   z-index: 8;
@@ -34,7 +34,7 @@ body {
   height: 100%;
   grid-column: 1 / 2;
   grid-row: 1 / 4;
-  background-color: #1a237e;
+  background-color: #310e68;
   display: flex;
   flex-direction: column;
   z-index: 8;
@@ -50,7 +50,7 @@ body {
 .footer {
   grid-column: 2 / 3;
   grid-row: 3 / 4;
-  background-color: #1a237e;
+  background-color: #310e68;
 }
 
 /*Navgation related styles*/
@@ -93,11 +93,11 @@ body {
 
 .nav-link {
   width: 100%;
-  border-top: 0.5px solid #3f51b5;
+  border-top: 0.5px solid #512da8;
 }
 
 .nav-link:last-child {
-  border-bottom: 0.5px solid #3f51b5;
+  border-bottom: 0.5px solid #512da8;
 }
 
 .nav-link {
@@ -110,8 +110,9 @@ body {
 }
 
 .nav-link:hover,
-.nav-link.active {
-  background-color: #303f9f;
+.nav-link:active {
+  background-color: #512da8;
+  transition: all 0.2s ease-in;
 }
 
 .nav-bar-icon {
@@ -130,7 +131,7 @@ body {
   font-size: 16px;
   font-weight: 500;
   color: #fdfefe;
-  background-color: #3f51b5;
+  background-color: #512da8;
   border-radius: 5px;
   border: none;
 }
@@ -138,12 +139,50 @@ body {
 .log-out-btn:hover {
   font-size: 18px;
   padding: 10px;
-  box-shadow: 0px 0px 5px 1px rgba(101, 3, 230, 1);
+  box-shadow: 0px 0px 5px 1px #512da8;
   transition: all 0.2s ease-out;
 }
 
+/*Empty message styles*/
+.default-empty-container {
+  position: absolute;
+  width: 50vw;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 1px #512da8;
+}
+
+.default-empty-text {
+  font-size: 30px;
+  padding: 10px;
+  color: #310e68;
+  font-weight: 500;
+}
+
+/*Floating action button*/
+.action-btn-container {
+  position: absolute;
+  top: 94%;
+  left: 95%;
+  z-index: 100;
+}
+
+.action-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #310e68;
+}
+
+.action-btn i {
+  font-size: 30px;
+  color: #fdfefe;
+}
+
 /* Modal window styles */
-/*This is element ot which modal will be attched*/
 .modal-backdrop {
   position: absolute;
   left: 0;

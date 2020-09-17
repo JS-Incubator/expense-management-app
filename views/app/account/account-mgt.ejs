@@ -145,19 +145,17 @@ include('../../includes/navigation-top.ejs') %>
     </div>
   </div>
   <% } else { %>
-  <div class="container">
-    <div class="row">
-      <h3>
-        You have no account created yet, Click the button below to get started
-      </h3>
-    </div>
+  <div class="default-empty-container">
+    <p class="default-empty-text">
+      You have no account created yet, Click the button below to get started
+    </p>
   </div>
   <% } %>
 </div>
 <!---Floating Action button-->
-<div class="fixed-action-btn" id="add-account-action-button">
-  <button class="btn-floating btn-large waves-effect waves-light red">
-    <i class="material-icons">add</i>
+<div class="action-btn-container" id="add-account-action-button">
+  <button class="action-btn">
+    <i class="fas fa-plus"></i>
   </button>
 </div>
 
