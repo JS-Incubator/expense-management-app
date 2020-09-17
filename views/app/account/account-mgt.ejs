@@ -5,6 +5,7 @@ include('../../includes/navigation-top.ejs') %>
 <!---Start Modal Window-->
 <div class="modal-backdrop hide-backdrop"></div>
 
+<!--TODO: Generalize the modal window and make it indepedent  -->
 <div class="modal-container hide-modal">
   <h4 class="modal-header">Add New Account</h4>
   <div class="form-container">
@@ -76,8 +77,8 @@ include('../../includes/navigation-top.ejs') %>
         <div class="input-field">
           <select name="currency" id="currency">
             <!--TODO: Need to generate dynamically -->
-            <option value="US Dollers" selected>US Dollers</option>
-            <option value="Canadian Dollers">Canadian Dollers</option>
+            <option value="US Dollars" selected>US Dollars</option>
+            <option value="Canadian Dollars">Canadian Dollars</option>
           </select>
           <label for="defaultCurrency">Default Currency</label>
         </div>
@@ -106,44 +107,43 @@ include('../../includes/navigation-top.ejs') %>
 </div>
 <!--End Modal Window -->
 
-
-
 <!--Defauld Screen -->
 <div class="container">
-  <div class="table">
   <% if ( accounts && accounts.length > 0) { %>
-  <table class="striped">
-    <thead class="table-header">
-      <tr>
-          <th>Account Name</th>
-          <th>CM Opening Balance</th>
-          <th>Existing Balance</th>
-          <th></th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="table">
+    <div class="table-header-container">
+      <div class="table-header flex-1">Account Name</div>
+      <div class="table-header flex-1 text-center">CM Opening Balance</div>
+      <div class="table-header flex-1 text-center">Current Balance</div>
+      <div class="table-header flex-2"></div>
+    </div>
+    <div class="table-body-container">
       <% accountTypes.forEach(type => {%>
-      <tr>
-        <div><td><%=type%></div></td>
-      </tr>
-      <% accounts.forEach(account => {%> <% if (account.accountType === type)
-      {%>
-      <tr>
-        <td><%=account.accountName%></td>
-        <td><%=account.openingBalance%></td>
-        <td><%=account.currentBalance%></td>
-        <td>
+      <div class="table-subheader">
+        <p><%=type%></p>
+      </div>
+      <% accounts.forEach((account, index, arr) => {%> <% if
+      (account.accountType === type) {%>
+      <div class="<%=index%2===0 ? 'table-row stripe' : 'table-row'%>">
+        <div class="table-data flex-1"><%=account.accountName%></div>
+        <div class="table-data flex-1 text-center">
+          <%=account.openingBalance%>
+        </div>
+        <div class="table-data flex-1 text-center">
+          <%=account.currentBalance%>
+        </div>
+        <div class="table-data flex-2 text-center">
           <a
-            href="/app/edit-account/<%=account._id%>"
+            href="#"
+            class="edit-account-icon"
+            data-account-id="<%=account._id%>"
             ><i class="fas fa-edit"></i
           ></a>
-        </td>
-      </tr>
+        </div>
+      </div>
       <%}%> <%})%> <% }) %>
-    </tbody>
-  </table>
-</div>
-</div>
+    </div>
+  </div>
   <% } else { %>
   <div class="container">
     <div class="row">
@@ -153,16 +153,19 @@ include('../../includes/navigation-top.ejs') %>
     </div>
   </div>
   <% } %>
-
-  <!---Floating Action button-->
-  <div class="fixed-action-btn" id="add-account-action-button">
-    <button
-      class="btn-floating btn-large waves-effect waves-light red"
-      ><i class="material-icons">add</i></button>
-  </div>
+</div>
+<!---Floating Action button-->
+<div class="fixed-action-btn" id="add-account-action-button">
+  <button class="btn-floating btn-large waves-effect waves-light red">
+    <i class="material-icons">add</i>
+  </button>
+</div>
 
 <!---Navigation bottom include file-->
 <%- include('../../includes/navigation-bottom.ejs') %>
 
-<!---Footer Includes File-->
+<!---Adding script files-->
+<script src="/helpers/app/handleModals.js"></script>
+
+<!---Footer includes file-->
 <%- include('../../includes/footer.ejs') %>

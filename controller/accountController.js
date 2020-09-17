@@ -1,3 +1,4 @@
+const mogoose = require('mongoose');
 const Account = require('../models/account');
 
 module.exports = {
@@ -14,8 +15,7 @@ module.exports = {
     // TODO: Filtering the account types here, Will be moved to its own modal later
     const accountTypes = [];
     accounts.forEach((account) => {
-      const isUnique = (type) => type === account.accountType;
-      if (accountTypes.findIndex(isUnique)) {
+      if (accountTypes.indexOf(account.accountType) === -1) {
         accountTypes.push(account.accountType);
       }
     });
@@ -26,19 +26,6 @@ module.exports = {
       accounts,
       account: null,
     });
-  },
-
-  getAddAccount: (req, res) => {
-    res.send({
-      pageTitle: 'Add Account',
-      pageHeader: 'Add New Account',
-      mode: 'addAccount',
-    });
-
-    // res.render('app/account/model-window-test', {
-    //   pageTitle: 'Add Account',
-    //   pageHeader: 'Add New Account',
-    // });
   },
 
   postAddAccount: async (req, res) => {
@@ -62,30 +49,28 @@ module.exports = {
   },
 
   getEditAccount: async (req, res) => {
-    const account = await Account.findById(req.params.id);
+    const accountId = req.params.id;
+    const account = await Account.findById(accountId);
     if (!account) {
       res.redirect('/app/accounts');
     } else {
-      res.render('app/account/editAccount', {
-        pageTitle: 'Edit Account',
-        pageHeader: 'Edit Account',
-        account,
-      });
+      res.send(account);
     }
   },
 
   postEditAccount: async (req, res) => {
     const account = {
-      accountName: req.body.accountName,
-      accountType: req.body.accountType,
-      openingDate: req.body.openingDate,
-      openingBalance: req.body.openingBalance
-        ? parseFloat(req.body.openingBalance)
+      accountName: req.body.account.accountName,
+      accountType: req.body.account.accountType,
+      openingDate: req.body.account.openingDate,
+      openingBalance: req.body.account.openingBalance
+        ? parseFloat(req.body.account.openingBalance)
         : 0,
-      currentBalance: parseFloat(req.body.currentBalance),
-      defaultCurrency: req.body.currency,
+      currentBalance: parseFloat(req.body.account.currentBalance),
+      defaultCurrency: req.body.account.currency,
     };
-    await Account.findByIdAndUpdate(req.params.id, account);
-    res.redirect('/app/accounts');
+    await Account.findByIdAndUpdate(req.body.id, account);
+    res.status(201).json({message: 'Account updated successfully'});
+    // res.redirect('/app/accounts');
   },
 };
