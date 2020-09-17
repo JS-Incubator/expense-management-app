@@ -1,50 +1,63 @@
-const DBUser = require('../models/user');
-const {signupValidator} = require('../validation/userValidators');
+const User = require('../models/user');
 const {ErrorHandler} = require('../helpers/error');
-const {hashPwd} = require('../helpers/hasher');
-const {generateToken} = require('../helpers/token');
+const {hashPwd, decryptPwd} = require('../helpers/hasher');
 
 module.exports = {
   //Sign-in Handler
-  getSignupHandler: (req, res) => {
-    res.render('auth/sign-up', {pageTitle: 'Sign-up'});
+  getAuth: (req, res) => {
+    res.render('auth/auth', {pageTitle: 'Welcome'});
   },
 
   //Signup- Controller
-  postSignupHandler: async (req, res, next) => {
+  postSignup: async (req, res, next) => {
     try {
-      // const error = await signupValidator(req.body);
-      // if (error) {
-      //   throw new ErrorHandler(400, error.details[0].message);
-      //   return;
-      // }
-
-      const isUser = await DBUser.findOne({username: req.body.username});
-      if (isUser) {
+      const user = await User.findOne({username: req.body.email});
+      if (user) {
         throw new ErrorHandler(
           400,
-          'User already exist, Please login or Use reset password to create a password.'
+          'This email id is already taken, Try different email id.'
         );
-        return;
       }
 
       const {hash, salt} = hashPwd(req.body.password);
 
-      const user = await DBUser.create({
+      await User.create({
         username: req.body.username,
         email: req.body.email,
         password: hash,
         salt: salt,
+      }).then((user) => {
+        req.session.sessionToken = {
+          user: user._id,
+          isAuthenticated: true,
+        };
+        res.redirect('/app/dashboard');
       });
-
-      const token = await generateToken({id: user._id});
-      user.password = undefined;
-      user.salt = undefined;
-      user.__v = undefined;
-
-      res.redirect('/app/dashboard');
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      return next(error);
     }
+  },
+  postSignIn: async (req, res, next) => {
+    try {
+      const user = await User.findOne({email: req.body.email});
+      if (!user) {
+        throw new ErrorHandler(400, "Sorry we couldn't find this email id");
+      }
+      const hashPwd = await decryptPwd(user.salt, req.body.password);
+      if (user.password !== hashPwd) {
+        throw new ErrorHandler(400, 'Password does not match');
+      }
+      req.session.sessionToken = {
+        user: user._id,
+        isAuthenticated: true,
+      };
+      res.redirect('/app/dashboard');
+    } catch (error) {
+      return next(error);
+    }
+  },
+  postLogOut: (req, res, next) => {
+    req.session.destroy();
+    res.redirect('/');
   },
 };

@@ -10,4 +10,10 @@ module.exports = {
 
     return {hash, salt};
   },
+  decryptPwd: (salt, password) => {
+    const pwd = crypto.createHmac('sha512', salt);
+    pwd.update(password);
+    const hassPass = pwd.digest('hex');
+    return hassPass;
+  },
 };
