@@ -1,135 +1,132 @@
 /* Select dom elements*/
 const elements = {
-  backdrop: document.querySelector('.modal-backdrop'),
-  modalContainer: document.querySelector('.modal-container'),
-  formCancel: document.getElementById('form-cancel'),
-  addAccountBtn: document.getElementById('add-account'),
-  addAccountActionButton: document.getElementById('add-account-action-button'),
-  addAccountForm: document.getElementById('add-account-form'),
-  editAccountIcons: document.querySelectorAll('.edit-account-icon'),
-  modalHeader: document.querySelector('.modal-header'),
+  //General modal and form related elements
+  addAccountActionButton: document.getElementById('add-account-action-button'), //Action button trigger the modal
+  backdrop: document.querySelector('.modal-backdrop'), //select backdrop
+  modalContainer: document.querySelector('.modal-container'), //Modal parent container
+  modalHeader: document.querySelector('.modal-header'), //Modal header
+
+  //For input and btn related elements
   accountName: document.getElementById('accountName'),
   accountType: document.getElementById('accountType'),
   openingDate: document.getElementById('openingDate'),
   openingBalance: document.getElementById('openingBalance'),
   currentBalance: document.getElementById('currentBalance'),
-  currency: document.getElementById('currency'),
+  defaultCurrency: document.getElementById('defaultCurrency'),
+  formCancelBtn: document.getElementById('form-cancel'),
+  formSubmitBtn: document.getElementById('form-submit'),
+
+  //Edit account related elements
+  editAccountBtns: document.querySelectorAll('.edit-account-btn'),
 };
 
 /* Model handling functions*/
 const handleModal = {
+  //Toggle show and hide classes
   displayModal: (elem) => {
-    //Toggle show and hide classes
     elements.backdrop.classList.toggle('show-backdrop');
     elements.backdrop.classList.toggle('hide-backdrop');
     elements.modalContainer.classList.toggle('show-modal');
     elements.modalContainer.classList.toggle('hide-modal');
-
-    //Run Materialize functions for form inputs
-    let elems = document.querySelectorAll('.datepicker');
-    let instances = M.Datepicker.init(elems);
-    let elems2 = document.querySelectorAll('select');
-    let instances2 = M.FormSelect.init(elems2);
   },
+  //Toggle show and hide classes upon submiting the form, clicking cancel button
   hideModal: (elem) => {
-    //Toggle show and hide classes
     elements.backdrop.classList.remove('show-backdrop');
     elements.backdrop.classList.add('hide-backdrop');
     elements.modalContainer.classList.remove('show-modal');
     elements.modalContainer.classList.add('hide-modal');
-    elements.modalHeader.textContent = 'Add New Account';
-    elements.addAccountBtn.textContent = 'Add Account';
 
-    //Re-establsh form action to add product
-    elements.addAccountForm.setAttribute('action', `/app/account/add`);
-    elements.addAccountBtn.setAttribute('type', 'submit');
+    //Empty the input feilds
     elements.accountName.value = '';
     elements.accountType.value = '';
     elements.openingDate.value = '';
     elements.openingBalance.value = '';
     elements.currentBalance.value = '';
-    elements.currency.value = '';
+    elements.defaultCurrency.value = '';
+
+    //Resetting the modal header and button text to default
+    elements.modalHeader.textContent = 'Add new account';
+    elements.formSubmitBtn.textContent = 'Add account';
+    elements.formSubmitBtn.dataset.editing = '';
+  },
+  //Send post request to backend
+  sendPostRequest: (urlAction, accountId, data) => {
+    axios({
+      url: urlAction,
+      method: 'post',
+      data: {
+        account: data,
+        id: accountId,
+      },
+    }).then((response) => {
+      window.location.reload();
+      handleModal.hideModal();
+      //Resetting the modal header and button text to default
+      elements.modalHeader.textContent = 'Add new account';
+      elements.formSubmitBtn.textContent = 'Add account';
+      elements.formSubmitBtn.dataset.editing = '';
+    });
   },
 };
 
-//Open modal window upon add new account action button
+//Open modal window upon clicking the add new account action button
 elements.addAccountActionButton.addEventListener('click', (event) => {
   handleModal.displayModal();
 });
 
 // Close the modal window, Click cancel button
-elements.formCancel.addEventListener('click', (event) => {
+elements.formCancelBtn.addEventListener('click', (event) => {
   handleModal.hideModal();
 });
 
-// //Close the modal window, Press esc key
-// elements.attachModal.addEventListener('keydown', (event) => {
-//   console.log(event.keyCode);
-//   if (event.keyCode === 27) {
-//     handleModal.closeModal();
-
-//   }
-// });
-
-//Close the modal window upon submitting the form
-elements.addAccountForm.addEventListener('submit', (event) => {
-  handleModal.hideModal();
-});
-
-//Send post request to backend
-const postEditAccount = (event, accountId, data) => {
-  event.preventDefault();
-  axios({
-    url: `/app/account/edit/:${accountId}`,
-    method: 'post',
-    data: {
-      account: data,
-      id: accountId,
-    },
-  }).then((response) => {
-    handleModal.hideModal();
-    axios.get('/app/accounts');
-    window.location.reload();
-  });
+//Re-evaluate input values
+const accountData = () => {
+  let accountData = {
+    accountName: elements.accountName.value,
+    accountType: elements.accountType.value,
+    openingDate: elements.openingDate.value,
+    openingBalance: elements.openingBalance.value,
+    currentBalance: elements.currentBalance.value,
+    defaultCurrency: elements.defaultCurrency.value,
+  };
+  return accountData;
 };
 
-//Open the edit account modal window on edit icon click
-for (const icon of elements.editAccountIcons) {
-  icon.addEventListener('click', (event) => {
-    event.preventDefault();
-    const accountId = icon.dataset.accountId;
-    elements.modalHeader.textContent = 'Edit Account';
-    elements.addAccountBtn.textContent = 'Ok';
-    elements.addAccountBtn.setAttribute('id', 'edit-account');
-    elements.addAccountBtn.setAttribute('type', 'button');
-    elements.addAccountForm.setAttribute('action', ``);
-    const editAccountBtn = document.getElementById('edit-account');
+//Submit the new account details upon clicking the formSubmitBtn
+elements.formSubmitBtn.addEventListener('click', (event) => {
+  handleModal.sendPostRequest('/app/account/add', null, accountData());
+});
 
-    axios
-      .get(`/app/account/edit/${accountId}`)
+//Submit the updated account details upon clicking the formSubmitBtn on edit form
+for (const editBtn of elements.editAccountBtns) {
+  editBtn.addEventListener('click', () => {
+    elements.modalHeader.textContent = 'Edit Account';
+    elements.formSubmitBtn.textContent = 'Update Account';
+    const accountId = editBtn.dataset.accountId;
+    axios({
+      url: `/app/account/edit/${accountId}`,
+      method: 'get',
+    })
       .then((response) => {
-        const account = response.data;
-        elements.accountName.value = account.accountName;
-        elements.accountType.value = account.accountType;
-        elements.openingDate.value = account.openingDate;
-        elements.openingBalance.value = account.openingBalance;
-        elements.currentBalance.value = account.currentBalance;
-        elements.currency.value = account.defaultCurrency;
-        return response.data;
+        const accountData = response.data;
+        //Set the value feilds upon receiving the account data
+        elements.accountName.value = accountData.accountName;
+        elements.accountType.value = accountData.accountType;
+        elements.openingDate.value = accountData.openingDate;
+        elements.openingBalance.value = accountData.openingBalance;
+        elements.currentBalance.value = accountData.currentBalance;
+        elements.defaultCurrency.value = accountData.defaultCurrency;
+        return accountData;
       })
       .then((data) => {
         handleModal.displayModal();
-        editAccountBtn.addEventListener('click', (event) => {
-          newAccountData = {
-            accountName: elements.accountName.value,
-            accountType: elements.accountType.value,
-            openingDate: elements.openingDate.value,
-            openingBalance: elements.openingBalance.value,
-            currentBalance: elements.currentBalance.value,
-            defaultCurrency: elements.currency.value,
-          };
-          postEditAccount(event, accountId, newAccountData);
-          editAccountBtn.setAttribute('id', 'add-account');
+        //Submit the new account details upon clicking the formSubmitBtn
+        elements.formSubmitBtn.addEventListener('click', (event) => {
+          handleModal.sendPostRequest(
+            `/app/account/edit/${accountId}`,
+            accountId,
+            accountData()
+          );
         });
       });
   });

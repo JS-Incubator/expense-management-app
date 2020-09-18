@@ -8,101 +8,88 @@ include('../../includes/navigation-top.ejs') %>
 <!--TODO: Generalize the modal window and make it indepedent  -->
 <div class="modal-container hide-modal">
   <h4 class="modal-header">Add New Account</h4>
-  <div class="form-container">
-    <form id="add-account-form" action="/app/account/add" method="POST">
-      <div class="row">
-        <div class="input-field">
-          <input
-            class="validate"
-            placeholder="Account Name"
-            id="accountName"
-            name="accountName"
-            type="text"
-          />
-          <label for="accountName">Account Name</label>
-        </div>
-      </div>
+  <div class="input-container">
+    <label class="lable" for="accountName">Account Name</label>
+    <input
+      class="input-field"
+      id="accountName"
+      name="accountName"
+      type="text"
+    />
+  </div>
 
-      <div class="row">
-        <div class="input-field">
-          <select name="accountType" , id="accountType">
-            <!--TODO: Need to generate dynamically -->
-            <option value="Bank" selected>Bank</option>
-            <option value="Cash">Cash</option>
-            <option value="Receivables">Receivables</option>
-            <option value="Credit Card">Credit Card</option>
-            <option value="Loans">Loans</option>
-          </select>
-        </div>
-      </div>
+  <div class="input-container">
+    <label class="lable" for="accountType">Account Type</label>
+    <select
+      class="input-field input-select"
+      name="accountType"
+      ,
+      id="accountType"
+    >
+      <!--TODO: Need to generate dynamically -->
+      <option value="Bank" selected>Bank</option>
+      <option value="Cash">Cash</option>
+      <option value="Receivables">Receivables</option>
+      <option value="Credit Card">Credit Card</option>
+      <option value="Loans">Loans</option>
+    </select>
+  </div>
 
-      <div class="row">
-        <div class="input-field">
-          <input
-            placeholder="Opening Date"
-            id="openingDate"
-            name="openingDate"
-            type="text"
-            class="datepicker col s12 validate"
-          />
-          <label for="openingData">Opening Date</label>
-        </div>
-      </div>
+  <div class="input-container">
+    <label class="lable" for="openingData">Opening Date</label>
+    <input
+      id="openingDate"
+      name="openingDate"
+      type="date"
+      class="input-field"
+    />
+  </div>
 
-      <div class="row">
-        <div class="input-field">
-          <input
-            placeholder="Opening Balance"
-            id="openingBalance"
-            name="openingBalance"
-            type="text"
-          />
-          <label for="openingBalance">Opening Balance</label>
-        </div>
-      </div>
+  <div class="input-container">
+    <label class="lable" for="openingBalance">Opening Balance</label>
+    <input
+      id="openingBalance"
+      name="openingBalance"
+      type="text"
+      class="input-field"
+    />
+  </div>
 
-      <div class="row">
-        <div class="input-field">
-          <input
-            placeholder="Current Balance"
-            id="currentBalance"
-            name="currentBalance"
-            type="text"
-          />
-          <label for="currentBalance">Current Balance</label>
-        </div>
-      </div>
+  <div class="input-container">
+    <label class="lable" for="currentBalance">Current Balance</label>
+    <input
+      id="currentBalance"
+      name="currentBalance"
+      type="text"
+      class="input-field"
+    />
+  </div>
 
-      <div class="row">
-        <div class="input-field">
-          <select name="currency" id="currency">
-            <!--TODO: Need to generate dynamically -->
-            <option value="US Dollars" selected>US Dollars</option>
-            <option value="Canadian Dollars">Canadian Dollars</option>
-          </select>
-          <label for="defaultCurrency">Default Currency</label>
-        </div>
-      </div>
+  <div class="input-container">
+    <label class="lable" for="defaultCurrency">Default Currency</label>
+    <select
+      class="input-field input-select"
+      name="defaultCurrency"
+      id="defaultCurrency"
+    >
+      <!--TODO: Need to generate dynamically -->
+      <option value="US Dollars" selected>US Dollars</option>
+      <option value="Canadian Dollars">Canadian Dollars</option>
+    </select>
+  </div>
 
-      <div class="row">
-        <div class="right-align">
-          <button
-            type="button"
-            class="waves-effect waves-red red btn"
-            id="form-cancel"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            class="waves-effect waves-geen btn add-account"
-            id="add-account"
-          >
-            Add Account
-          </button>
-        </div>
-      </div>
-    </form>
+  <div class="form-btn-container">
+    <button type="button" class="form-btn cancel" id="form-cancel">
+      Cancel
+    </button>
+    <button
+      type="submit"
+      class="form-btn ok"
+      id="form-submit"
+      data-editing="null"
+    >
+      Add Account
+    </button>
   </div>
 </div>
 <!--End Modal Window -->
@@ -133,12 +120,9 @@ include('../../includes/navigation-top.ejs') %>
           <%=account.currentBalance%>
         </div>
         <div class="table-data flex-2 text-center">
-          <a
-            href="#"
-            class="edit-account-icon"
-            data-account-id="<%=account._id%>"
-            ><i class="fas fa-edit"></i
-          ></a>
+          <button class="edit-account-btn" data-account-id="<%=account._id%>">
+            <i class="fas fa-edit"></i>
+          </button>
         </div>
       </div>
       <%}%> <%})%> <% }) %>
@@ -163,6 +147,7 @@ include('../../includes/navigation-top.ejs') %>
 <%- include('../../includes/navigation-bottom.ejs') %>
 
 <!---Adding script files-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/helpers/app/handleModals.js"></script>
 
 <!---Footer includes file-->
