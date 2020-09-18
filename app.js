@@ -2,22 +2,19 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-const connectDB = require('./config/db');
+const {initDb, getDB} = require('./config/db');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 //Initializing config file for environment variables
 dotenv.config({path: './config/config.env'});
 
-//Initilizing and connecting to the database
-connectDB();
-
 //Initalize express
 const app = express();
 
 //Initialize mongodb store to save sessions
 const store = new MongoDBStore({
-  uri: process.env.MONGO_URI,
+  uri: process.env.MONGO_URI_LOCAL,
   collection: 'sessions',
 });
 
@@ -62,7 +59,16 @@ app.use('/app', appRoutes);
 
 //Initialize the express server
 const PORT = process.env.PORT || 5858;
-app.listen(
-  PORT,
-  console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`)
-);
+initDb((error, db) => {
+  if (error) {
+    console.log('Database connection faild');
+    console.log(error);
+  } else {
+    app.listen(
+      PORT,
+      console.log(
+        `Server started in ${process.env.NODE_ENV} mode on port ${PORT}`
+      )
+    );
+  }
+});

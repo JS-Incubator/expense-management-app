@@ -1,19 +1,32 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
-  try {
-    const connect = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
-    });
-    console.log(`MongoDB connected ${connect.connection.host}`);
-  } catch (error) {
-    console.log('DB connection failed');
-    console.error(error);
-    process.exit(1);
-  }
-};
+let _db;
 
-module.exports = connectDB;
+module.exports = {
+  initDb: (callback) => {
+    if (_db) {
+      console.log('Database is already initialized');
+      return callback(null, _db);
+    }
+    mongoose
+      .connect(process.env.MONGO_URI_LOCAL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
+      })
+      .then((connection) => {
+        _db = connection;
+        callback(null, _db);
+      })
+      .catch((error) => {
+        callback(erro);
+      });
+  },
+  getDB: () => {
+    if (_db) {
+      throw Error('Data base is not yet initialized');
+    }
+    return _db;
+  },
+};
