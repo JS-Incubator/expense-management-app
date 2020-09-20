@@ -1,5 +1,4 @@
-const {NotExtended} = require('http-errors');
-const mogoose = require('mongoose');
+const numeral = require('numeral');
 const Account = require('../models/account');
 
 module.exports = {
@@ -23,7 +22,7 @@ module.exports = {
       return next(error);
     }
     try {
-      const accounts = await Account.find({user});
+      const accounts = await Account.find({ user });
       // TODO: Filtering the account types here, Will be moved to its own modal later
       const accountTypes = [];
       accounts.forEach((account) => {
@@ -31,11 +30,20 @@ module.exports = {
           accountTypes.push(account.accountType);
         }
       });
-      res.render('app/account/account-mgt', {
+      const formattedAccounts = accounts.map((account) => {
+        const openingBalance = numeral(account.openingBalance).format(
+          '$ 0,0[.]00'
+        );
+        const currentBalance = numeral(account.currentBalance).format(
+          '$ 0,0[.]00'
+        );
+        return { ...account._doc, openingBalance, currentBalance };
+      });
+      res.render('app/account-mgt', {
         pageTitle: 'Account Managememt',
         pageHeader: 'Manage Your Accounts',
         accountTypes,
-        accounts,
+        formattedAccounts,
         account: null,
       });
     } catch (error) {
@@ -64,11 +72,10 @@ module.exports = {
           ? parseFloat(req.body.account.openingBalance)
           : 0,
         currentBalance: parseFloat(req.body.account.currentBalance),
-        defaultCurrency: req.body.account.defaultCurrency,
         user,
       };
       await Account.create(account);
-      return res.redirect('/app/accounts');
+      return res.send(account);
     } catch (err) {
       const error = new Error();
       error.statusCode = 400;
@@ -105,7 +112,7 @@ module.exports = {
     }
   },
 
-  postEditAccount: async (req, res) => {
+  postEditAccount: async (req, res, next) => {
     const user = req.session.sessionToken
       ? req.session.sessionToken.user
       : null;
@@ -127,13 +134,12 @@ module.exports = {
         ? parseFloat(req.body.account.openingBalance)
         : 0,
       currentBalance: parseFloat(req.body.account.currentBalance),
-      defaultCurrency: req.body.account.currency,
       user,
     };
 
     try {
       const updatedAccount = await Account.findOneAndUpdate(
-        {_id: accountId, user: user},
+        { _id: accountId, user },
         account
       );
       if (!updatedAccount) {
@@ -142,7 +148,7 @@ module.exports = {
         error.message = "Ohh, That didn't Worker, Please try again";
         return next(error);
       }
-      return res.redirect('/app/accounts');
+      return res.send(updatedAccount);
     } catch (err) {
       const error = new Error();
       error.statusCode = 400;

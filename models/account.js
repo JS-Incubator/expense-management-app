@@ -26,13 +26,14 @@ const AccountSchema = new mongoose.Schema(
     defaultCurrency: {
       type: String,
       required: true,
+      default: 'US Dollar',
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
   },
-  {timestamps: true}
+  { timestamps: true }
 );
 
 module.exports = mongoose.model('Account', AccountSchema);

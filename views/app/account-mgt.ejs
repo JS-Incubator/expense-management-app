@@ -1,13 +1,12 @@
 <!---Header Includes File-->
-<%- include('../../includes/header.ejs') %> <%-
-include('../../includes/navigation-top.ejs') %>
+<%- include('../includes/header.ejs') %> <%-
+include('../includes/navigation-top.ejs') %>
 
 <!---Start Modal Window-->
-<div class="modal-backdrop hide-backdrop"></div>
+<div class="modal-backdrop hide-backdrop" id="acc-mgt-backdrop"></div>
 
-<!--TODO: Generalize the modal window and make it indepedent  -->
-<div class="modal-container hide-modal">
-  <h4 class="modal-header">Add New Account</h4>
+<div class="modal-container hide-modal" id="acc-mgt-modal-container">
+  <h4 class="modal-header" id="acc-mgt-modal-header">Add New Account</h4>
   <div class="input-container">
     <label class="lable" for="accountName">Account Name</label>
     <input
@@ -65,30 +64,13 @@ include('../../includes/navigation-top.ejs') %>
     />
   </div>
 
-  <div class="input-container">
-    <label class="lable" for="defaultCurrency">Default Currency</label>
-    <select
-      class="input-field input-select"
-      name="defaultCurrency"
-      id="defaultCurrency"
-    >
-      <!--TODO: Need to generate dynamically -->
-      <option value="US Dollars" selected>US Dollars</option>
-      <option value="Canadian Dollars">Canadian Dollars</option>
-    </select>
-  </div>
-
   <div class="form-btn-container">
-    <button type="button" class="form-btn cancel" id="form-cancel">
-      Cancel
-    </button>
-    <button
-      type="submit"
-      class="form-btn ok"
-      id="form-submit"
-      data-editing="null"
-    >
+    <button class="form-btn cancel" id="form-cancel">Cancel</button>
+    <button class="form-btn ok button-visible" id="add-account-submit-btn">
       Add Account
+    </button>
+    <button class="form-btn ok button-hidden" id="edit-account-submit-btn">
+      Edit Account
     </button>
   </div>
 </div>
@@ -96,31 +78,36 @@ include('../../includes/navigation-top.ejs') %>
 
 <!--Defauld Screen -->
 <div class="container">
-  <% if ( accounts && accounts.length > 0) { %>
+  <% if ( formattedAccounts && formattedAccounts.length > 0) { %>
   <div class="table">
     <div class="table-header-container">
-      <div class="table-header flex-1">Account Name</div>
+      <div class="table-header flex-2">Account Name</div>
       <div class="table-header flex-1 text-center">CM Opening Balance</div>
       <div class="table-header flex-1 text-center">Current Balance</div>
-      <div class="table-header flex-2"></div>
+      <div class="table-header flex-1 text-center">CM Change</div>
+      <div class="table-header flex-1 text-center">Actions</div>
+      <div class="table-header flex-1"></div>
     </div>
     <div class="table-body-container">
       <% accountTypes.forEach(type => {%>
       <div class="table-subheader">
         <p><%=type%></p>
       </div>
-      <% accounts.forEach((account, index, arr) => {%> <% if
+      <% formattedAccounts.forEach((account, index, arr) => {%> <% if
       (account.accountType === type) {%>
       <div class="<%=index%2===0 ? 'table-row stripe' : 'table-row'%>">
-        <div class="table-data flex-1"><%=account.accountName%></div>
-        <div class="table-data flex-1 text-center">
+        <div class="table-data flex-2"><%=account.accountName%></div>
+        <div class="table-data flex-1 text-center positive">
           <%=account.openingBalance%>
         </div>
-        <div class="table-data flex-1 text-center">
+        <div class="table-data flex-1 text-center positive">
           <%=account.currentBalance%>
         </div>
-        <div class="table-data flex-2 text-center">
-          <button class="edit-account-btn" data-account-id="<%=account._id%>">
+        <div class="table-data flex-1 text-center">
+          <button
+            class="table-data-btn edit-account-btn"
+            data-account-id="<%=account._id%>"
+          >
             <i class="fas fa-edit"></i>
           </button>
         </div>
@@ -144,11 +131,11 @@ include('../../includes/navigation-top.ejs') %>
 </div>
 
 <!---Navigation bottom include file-->
-<%- include('../../includes/navigation-bottom.ejs') %>
+<%- include('../includes/navigation-bottom.ejs') %>
 
 <!---Adding script files-->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="/helpers/app/handleModals.js"></script>
+<script src="/helpers/app/handleAccModals.js"></script>
 
 <!---Footer includes file-->
-<%- include('../../includes/footer.ejs') %>
+<%- include('../includes/footer.ejs') %>
