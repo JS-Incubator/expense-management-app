@@ -250,8 +250,8 @@ body {
 .modal-header {
   display: block;
   text-align: center;
-  padding: 20px;
-  font-size: 40px;
+  padding: 15px 0;
+  font-size: 30px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #310e68;
@@ -279,11 +279,19 @@ body {
   background-color: #310e68;
 }
 
+.button-visible {
+  display: inline-block;
+}
+
+.button-hidden {
+  display: none;
+}
+
 /* Table styles */
 .table {
   z-index: 2;
   margin: 50px auto;
-  width: 50vw;
+  width: 70vw;
 }
 
 .table-header-container {
@@ -315,6 +323,28 @@ body {
   letter-spacing: 1px;
   border-radius: 5px;
   text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.table-sub-head-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90px;
+}
+
+.sub-cat-hide {
+  visibility: hidden;
+  max-height: 0;
+  transition: visibility 0.2s ease-out;
+}
+
+.sub-cat-show {
+  visibility: visible;
+  max-height: auto;
+  transition: visibility 0.2s ease-out;
 }
 
 .table-row {
@@ -334,11 +364,11 @@ body {
   background-color: #ede7f6;
 }
 
-.flex-1 {
-  flex: 2 1 0;
+.flex-2 {
+  flex: 3 1 0;
 }
 
-.flex-2 {
+.flex-1 {
   flex: 1 1 0;
 }
 
@@ -346,13 +376,32 @@ body {
   text-align: center;
 }
 
-.edit-account-btn {
+.positive {
+  color: #148f77 !important;
+}
+
+.negative {
+  color: #e74c3c !important;
+}
+
+.table-data-btn {
   margin: 0;
   padding: 0;
   background: none;
   border: none;
   cursor: pointer;
   color: #310e68;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.table-sub-head-btn {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fdfefe;
   font-size: 16px;
   font-weight: 500;
 }
@@ -510,4 +559,15 @@ body {
     #021b79 51%,
     #0575e6 100%
   );
+}
+
+/*Catogery management related styles*/
+.add-main-cat-btn {
+  position: absolute;
+  top: -50%;
+}
+
+.add-sub-cat-btn {
+  position: absolute;
+  top: -100%;
 }

@@ -1,0 +1,179 @@
+<!-- -Header Includes File -->
+<%- include('../includes/header.ejs') %> <%-
+include('../includes/navigation-top.ejs') %>
+
+<!---Start Main Modal Window-->
+<div class="modal-backdrop hide-backdrop" id="main-cat-backdrop"></div>
+
+<!---Main Catogery Modal Window-->
+<div class="modal-container hide-modal" id="main-cat-modal-container">
+  <h4 class="modal-header" id="main-cat-modal-header">
+    Add New Main Catergory
+  </h4>
+  <div class="input-container">
+    <label class="lable" for="mainCategoryName">Main Category Name</label>
+    <input
+      class="input-field"
+      id="mainCategoryName"
+      name="mainCategoryName"
+      type="text"
+    />
+  </div>
+
+  <div class="input-container">
+    <label class="lable" for="mainCategoryType">Main Category Type</label>
+    <select
+      class="input-field input-select"
+      name="mainCategoryType"
+      id="mainCategoryType"
+    >
+      <!--TODO: Need to generate dynamically -->
+      <option value="expense" selected>Expense</option>
+      <option value="income">Income</option>
+    </select>
+  </div>
+
+  <div class="form-btn-container">
+    <button class="form-btn cancel" id="main-cat-form-cancel">Cancel</button>
+    <button class="form-btn ok button-visible" id="main-cat-add-submit-btn">
+      Add Main Category
+    </button>
+    <button class="form-btn ok button-hidden" id="main-cat-edit-submit-btn">
+      Edit Main Category
+    </button>
+  </div>
+</div>
+<!--End Main Category Modal Window -->
+
+<!---Start Sub Modal Window-->
+<div class="modal-backdrop hide-backdrop" id="sub-cat-backdrop"></div>
+
+<!---Sub Catogery Modal Window-->
+<div class="modal-container hide-modal" id="sub-cat-modal-container">
+  <h4 class="modal-header" id="sub-cat-modal-header">Add New Sub Catergory</h4>
+  <div class="input-container">
+    <label class="lable" for="subCategoryName">Sub Category Name</label>
+    <input
+      class="input-field"
+      id="subCategoryName"
+      name="subCategoryName"
+      type="text"
+    />
+  </div>
+
+  <div class="input-container">
+    <label class="lable" for="mainCategoryInSub">Main Category Name</label>
+    <select
+      class="input-field input-select"
+      name="mainCategoryInSub"
+      id="mainCategoryInSub"
+    >
+      <!--TODO: Need to generate dynamically -->
+      <% if (mainCategories && mainCategories.length > 0) {%> <%
+      mainCategories.forEach(category=> {%>
+      <option
+        data-main-cat-Id="<%=category._id%>"
+        value="<%=category.mainCategory.mainCategoryName%>"
+      >
+        <%=category.mainCategory.mainCategoryName%>
+      </option>
+      <% })%> <%}%>
+    </select>
+  </div>
+
+  <div class="form-btn-container">
+    <button class="form-btn cancel" id="sub-cat-form-cancel">Cancel</button>
+    <button class="form-btn ok button-visible" id="sub-cat-add-submit-btn">
+      Add Sub Category
+    </button>
+    <button class="form-btn ok button-hidden" id="sub-cat-edit-submit-btn">
+      Edit Sub Category
+    </button>
+  </div>
+</div>
+<!--End Sub Category Modal Window -->
+
+<!--Defauld Screen -->
+<div class="container">
+  <% if (mainCategories && mainCategories.length > 0) { %>
+  <div class="table">
+    <div class="table-header-container">
+      <div class="table-header flex-2">Category Name</div>
+      <div class="table-header flex-1 text-center">This Month</div>
+      <div class="table-header flex-1 text-center">LM Same Date</div>
+      <div class="table-header flex-1 text-center">Change</div>
+      <div class="table-header flex-1 text-center">% Change</div>
+      <div class="table-header flex-1"></div>
+    </div>
+    <div class="table-body-container">
+      <% mainCategories.forEach(mainCat => {%>
+      <div class="table-subheader">
+        <p><%=mainCat.mainCategory.mainCategoryName%></p>
+        <div class="table-sub-head-btn-container">
+          <button
+            class="table-sub-head-btn main-cat-edit-btn"
+            data-main-cat-id="<%=mainCat._id%>"
+          >
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="table-sub-head-btn" id="sub-cat-collapse-btn">
+            <i class="fas fa-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+      <% if (subCategories && subCategories.length > 0) {%> <%
+      subCategories.forEach((subCat, index, arr) => {%> <%
+      if(subCat.subCategory.mainCategory.toString() === mainCat._id.toString() )
+      { %>
+      <div class="sub-cat-show" id="sub-cat-main-container">
+        <div class="<%=index%2===0 ? 'table-row stripe' : 'table-row'%>">
+          <div class="table-data flex-2">
+            <%=subCat.subCategory.subCategoryName%>
+          </div>
+          <div class="table-data flex-1 text-center"></div>
+          <div class="table-data flex-1 text-center"></div>
+          <div class="table-data flex-1 text-center"></div>
+          <div class="table-data flex-1 text-center"></div>
+          <div class="table-data flex-1 text-center">
+            <button
+              class="table-data-btn sub-cat-edit-btn"
+              data-subcat-id="<%=subCat._id%>"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <%}%> <%})%> <%}%> <%})%>
+    </div>
+  </div>
+  <% } else { %>
+  <div class="default-empty-container">
+    <p class="default-empty-text">
+      You have no catogery created yet, Click the button below to get started
+    </p>
+  </div>
+  <% } %>
+</div>
+<!---Floating Action button-->
+<div class="action-btn-container">
+  <div>
+    <button id="add-main-cat-btn">Main</button>
+  </div>
+  <div>
+    <button id="add-sub-cat-btn">Sub</button>
+  </div>
+  <button class="action-btn">
+    <i class="fas fa-plus"></i>
+  </button>
+</div>
+
+<!---Navigation bottom include file-->
+<%- include('../includes/navigation-bottom.ejs') %>
+
+<!---Adding script files-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/helpers/app//handleCatModals.js"></script>
+
+<!---Footer includes file-->
+<%- include('../includes/footer.ejs') %>
